@@ -13,7 +13,9 @@
       "typescript": "3.6.3"
    },
    "dependencies": {
+      "@types/bcrypt": "^3.0.0",
       "apollo-server-express": "^2.9.3",
+      "bcrypt": "^3.0.6",
       "cors": "^2.8.5",
       "dayjs": "^1.8.16",
       "dotenv": "^8.1.0",
