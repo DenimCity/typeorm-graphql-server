@@ -28,6 +28,8 @@ export class UserResolver {
 		return User.find()
 	}
 
+
+	// TODO:  make this a feature when the user forgets password or account ahs been hacked
 	@Mutation(() => Boolean)
 	async revokeRefreshtokenForUser(
 		@Arg('userId', () => Int) userId: number
