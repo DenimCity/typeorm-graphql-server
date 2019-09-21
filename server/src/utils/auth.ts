@@ -1,19 +1,30 @@
 import { User } from "src/entity/User";
 import {sign, verify} from 'jsonwebtoken'
 import { MiddlewareFn } from "type-graphql";
-import { Context } from "src/interfaces";
+import { Context } from "../interfaces";
+import { Response } from "express";
 
-export const generateToken = (user: User) => {
-    return sign({userId: user.userId}, process.env.ACCESS_SECRENT!, {
+export const generateToken = (user: any) => {
+    return sign({userId: user.userId}, process.env.ACCESS_TOKEN!, {
         expiresIn: "15m"
     })
 };
 
 
+export const verifyToken = (token: string) => {
+    return verify(token,process.env.REFRESH_TOKEN! )
+}
+
 export const refreshToken = (user: User) => {
-    return sign({userId: user.userId}, process.env.REFRESH_SECRENT!, {expiresIn: "7d"}), {
+    return sign({userId: user.userId, tokenVersion: user.tokenVersion}, process.env.REFRESH_TOKEN!, {expiresIn: "7d"}), {
         httpOnly: true
     }
+}
+
+export const sendRefreshToken = (res: Response, token: string | object) => {
+    res.cookie("dolwhId", token, {
+        httpOnly: true
+    })
 }
 
 
