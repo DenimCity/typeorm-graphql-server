@@ -5,6 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './graphql/UserResolver';
 import { createConnection } from 'typeorm';
+import { logger } from './utils';
 
 const port = process.env.PORT || 5000;
 (async () => {
@@ -18,6 +19,6 @@ const port = process.env.PORT || 5000;
 	await createConnection();
 
 	apolloServer.applyMiddleware({ app });
-	app.listen(port, () => console.log(`Serving running on port ${port}`));
+	app.listen(port, () => logger.info(`Serving running on port ${port}`));
 })();
 
