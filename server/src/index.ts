@@ -10,10 +10,12 @@ import { logger } from './utils';
 const port = process.env.PORT || 5000;
 (async () => {
 	const app = express();
+
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
 			resolvers: [ UserResolver ],
 		}),
+		context: ({req, res})=> ({req, res})
 	});
 
 	await createConnection();
